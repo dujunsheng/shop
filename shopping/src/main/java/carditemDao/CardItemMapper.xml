@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CardItemMapper">
+	<sql id="Base_Column_List" >
+    	card_id, u_id, g_id, g_quantity
+  	</sql>
+  	<select id="selectByPrimaryKey" resultType="CardItem" parameterType="int" >
+    select 
+    <include refid="Base_Column_List" />
+    from carditem
+    where card_id = #{card_id}
+  </select>
+  
+  <select id="selectByU_id" parameterType="java.util.Map" resultMap="selectByU_idMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from carditem
+    where u_id = #{u_id}
+    limit #{sp},#{ep}
+  </select>
+  <!-- 连表查询good的物品 -->
+  <resultMap type="CardItem" id="selectByU_idMap">
+  	<id property="card_id" column="card_id"/>
+  	<result property="g_id" column="g_id"/>
+  	<result property="g_quantity" column="g_quantity"/>
+  	<collection property="good" ofType="Goods" select="goodMapper.selectByPrimaryKey" column="g_id"></collection>
+  </resultMap>
+  
+  <!-- 查询该用户所拥有的商品条数 -->
+  <select id="countByU_id" parameterType="int" resultType="int">
+  	 select 
+    count(*)
+    from carditem
+    where u_id = #{u_id}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="int" >
+    delete from carditem
+    where card_id = #{card_id}
+  </delete>
+  <insert id="insert" parameterType="CardItem" >
+    insert into carditem (card_id, u_id, g_id, 
+      g_quantity)
+    values (#{card_id}, #{u_id}, #{g_id}, 
+      #{g_quantity})
+  </insert>
+  <insert id="insertSelective" parameterType="CardItem" >
+    insert into carditem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="card_id != null" >
+        card_id,
+      </if>
+      <if test="u_id != null" >
+        u_id,
+      </if>
+      <if test="g_id != null" >
+        g_id,
+      </if>
+      <if test="g_quantity != null" >
+        g_quantity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="card_id != null" >
+        #{card_id},
+      </if>
+      <if test="u_id != null" >
+        #{u_id},
+      </if>
+      <if test="g_id != null" >
+        #{g_id},
+      </if>
+      <if test="g_quantity != null" >
+        #{g_quantity},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="CardItem" >
+    update carditem
+    <set >
+      <if test="g_quantity != null" >
+        g_quantity = #{g_quantity,jdbcType=INTEGER},
+      </if>
+    </set>
+    where card_id = #{card_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="CardItem" >
+    update carditem
+    set u_id = #{uIu_idd,jdbcType=INTEGER},
+      g_id = #{g_id,jdbcType=INTEGER},
+      g_quantity = #{g_quantity,jdbcType=INTEGER}
+    where card_id = #{card_id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

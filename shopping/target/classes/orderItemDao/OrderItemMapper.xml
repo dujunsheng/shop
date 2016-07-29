@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace ="OrderItemMapper">
+
+	<select id="findByOrderItemId" parameterType="int" resultType="OrderItem">
+		select * from orderitem where orderitem_id=#{}
+	</select>
+	<select id="findAll" resultType="OrderItem">
+		select * from orderitem
+	</select>
+	
+	<!-- 通过o_id查询该订单下有多少条记录 -->
+	<select id="countByO_id" parameterType="int" resultType="int">
+		select count(*)
+		from orderitem
+		where order_id = #{ order_id}
+	</select>
+	
+	<!-- 查询订单中内容，分页查询,再通过延迟查询查询订单下对应的商品的信息 -->
+	<select id="findByO_id" parameterType="java.util.Map" resultMap="findByO_idMap">
+		select *
+		from  orderitem
+		where order_id = #{o_id}
+		 limit #{sp},#{ep}
+	</select>
+	
+	<!-- 查询某订单下的所有东西 -->
+	<select id="findTotal" parameterType="int" resultMap="findByO_idMap">
+		select *
+		from  orderitem
+		where order_id = #{o_id}
+	</select>
+	
+	<resultMap type="OrderItem" id="findByO_idMap">
+		<id property="orderitem_id" column="orderitem_id"/>
+		<result property="g_quantity" column="g_quantity"/>
+		<result property="g_id" column="g_id"/>
+		<association property="good" javaType="po.Goods" select="goodMapper.selectByPrimaryKey" column="g_id"></association>
+	</resultMap>
+	
+  <insert id="insertOrderItemSelect" parameterType="OrderItem">
+  	 insert into orderitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderitem_id != null" >
+        orderitem_id,
+      </if>
+      <if test="order_id != null" >
+        order_id,
+      </if>
+      <if test="g_id != null" >
+        g_id,
+      </if>
+      <if test="g_quantity != null" >
+        g_quantity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderitem_id != null" >
+        #{orderitem_id},
+      </if>
+      <if test="order_id != null" >
+        #{order_id},
+      </if>
+      <if test="g_id != null" >
+        #{g_id},
+      </if>
+      <if test="g_quantity != null" >
+        #{g_quantity},
+      </if>
+    </trim>
+  </insert>
+  <insert id="addOrderItem" parameterType="OrderItem">
+	    insert into orderitem (orderitem_id, order_id, g_id, 
+	      g_quantity)
+	    values (#{orderitem_id}, #{order_id}, #{g_id}, #{g_quantity})
+  </insert>
+  <delete id="deleteOrderItem" parameterType="int">
+  	delete from orderitem where orderitem_id = #{orderitem_id}
+  </delete>
+  
+  <update id="updateOrderItem" parameterType="OrderItem">
+    update orderitem
+    set order_id = #{orderId,jdbcType=INTEGER},
+      g_id = #{gId,jdbcType=INTEGER},
+      g_quantity = #{gQuantity,jdbcType=INTEGER}
+    where orderitem_id = #{orderitemId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateOrderItemSelect" parameterType="OrderItem">
+  	update orderitem
+    <set >
+      <if test="g_quantity != null" >
+        g_quantity = #{g_quantity},
+      </if>
+    </set>
+    where orderitem_id = #{orderitem_id}
+  </update>
+</mapper> 

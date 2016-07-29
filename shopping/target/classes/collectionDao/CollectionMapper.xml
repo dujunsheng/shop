@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="collectionMapper">
+	<select id="findByU_id" parameterType="java.util.Map" resultMap="findByU_idMap">
+		select * 
+		from collection 
+		where u_id = #{u_id}
+		limit #{sp},#{ep}
+	</select>
+	<resultMap type="Collection" id="findByU_idMap">
+		<result property="u_id" column="u_id"/>
+		<result property="g_id" column="g_id"/>
+		<association property="good" javaType="Goods" select="goodMapper.selectByPrimaryKey" column="g_id"></association>
+	</resultMap>
+	
+	<!-- 查询总记录数 -->
+	<select id="CountByUid" parameterType="int" resultType="int">
+		select count(*)
+		 from collection 
+		 where u_id = #{u_id}
+	</select>
+	
+	<resultMap type="Collection" id="findCollectionResultMap">
+		<result property="u_id" column="u_id"/>
+		<result property="g_id" column="g_id"/>
+		<association property="good" javaType="Goods" select="goodMapper.selectByPrimaryKey" column="g_id"></association>
+	</resultMap>
+	
+	<insert id="addCollection" parameterType="Collection">
+		insert into collection (u_id, g_id) values(${u_id}, ${g_id})
+	</insert>
+	<delete id="deleteCollection" parameterType="Collection">
+		delete from collection where u_id = #{u_id} and g_id=#{g_id}
+	</delete>
+</mapper>

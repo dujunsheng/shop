@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.rg/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="userDao.userMapper"> 
+
+	<select id="userLoad" parameterType="User" resultType="User" >
+		select * from user where u_name = #{u_name} and u_pw=#{u_pw}
+	</select>
+	
+	<select id="findByU_id" parameterType="int" resultType="User">
+		select * from user where u_id = #{u_id}
+	</select>
+	
+	<!-- 多条件组合查询 -->
+	<select id="findByCondition" parameterType="User" resultType="User">
+		select * from User
+		<where>
+				<if test="u_name != null and u_name != ''">
+					and user.u_name = #{user.u_name}
+				</if>
+				<if test="u_adress != null and u_adress != ''">
+					and user.u_adress = #{user.u_adress}
+				</if>
+				<if test="u_email != null and u_email != ''">
+					and u_email = #{u_email}
+				</if>
+				<if test="u_status != null and u_status != ''">
+					and u_status = #{u_status}
+				</if>
+				<if test="u_pw != null and u_pw != ''">
+					and u_pw = #{u_pw}
+				</if>
+				<if test="u_id != null and u_id != ''">
+					and u_id = #{u_id}
+				</if>
+		</where>
+	</select>
+	
+	<!-- 选择条件修改 -->
+	<update id="updateSelect" parameterType="User">
+		update user
+		<set>
+			<if test="u_name != null and u_name != ''">
+					u_name = #{u_name},
+				</if>
+				<if test="u_adress != null and u_adress != ''">
+					u_adress = #{u_adress},
+				</if>
+				<if test="u_email != null and u_email != ''">
+					u_email = #{u_email},
+				</if>
+				<if test="u_pw != null and u_pw != ''">
+					u_pw = #{u_pw},
+				</if> 
+		</set>
+		where u_id = #{u_id}
+	</update>
+	
+	<insert id="addUser" parameterType="User">
+		insert into user (u_name, u_pw, u_adress, u_email, u_status) 
+		   	values(#{u_name}, #{u_pw}, #{u_adress}, #{u_email}, #{u_status})
+	</insert>
+	
+	<delete id="deleteUser" parameterType="int" >
+		delete from user where u_id=#{u_id}
+	</delete>
+	
+	<update id="updateUser" parameterType="User">
+		update user set u_name=#{u_name},u_pw=#{u_pw}, u_adress=#{u_adress}, u_email=#{u_email}
+	</update>
+	
+	<select id="findNoPassUser" parameterType="int" resultType="User">
+		select *from user where u_status = 1
+	</select>
+	
+	<select id="adminLoad" resultType="User">
+		select * from user u_name= #{u_name} and u_pw=#{u_pw} and u_status =0
+	</select>
+	
+	<update id="checkUser" parameterType="int">
+		update user set u_status=#{u_status} where u_id= #{u_id}
+	</update>
+</mapper> 

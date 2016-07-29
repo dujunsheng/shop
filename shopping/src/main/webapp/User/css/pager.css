@@ -1,0 +1,43 @@
+.bold {font-weight: 900;}
+.divBody {
+	border-top: 2px solid #FE7C2C;
+	height: 35px;
+	width: 100%;
+	text-align: right;
+}
+.divContent {
+	line-height: 35px;
+	margin-right: 15px;
+}
+.spanBtnSelect {
+	border: 1px solid #F75A00; 
+	color: #FFFFFF;
+	background-color: #FE7C2C; 
+	text-align:center; 
+}
+.aBtn {
+	border: 1px solid #c1c1c1; 
+	text-align:center; 
+	background-color: #FFFFFF; 
+	color: #555555;
+	padding: 4px 8px 3px 8px;
+}
+.spanBtnDisabled {
+	border: 1px solid #c1c1c1;
+	text-align:center; 
+	background-color: #FFFFFF; 
+	color: #c1c1c1;
+	padding: 4px 8px 3px 8px;
+	font-weight: 900;
+}
+
+
+.inputPagecode {
+	border: 1px solid #c1c1c1;
+	width: 25px;
+	padding: 0px;
+}
+.aSubmit {
+	color: #555555;
+}
+

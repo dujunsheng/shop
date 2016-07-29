@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+<display-name></display-name>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>BaseServlet</servlet-name>
+  	<servlet-class>servlet.BaseServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>UserServlet</servlet-name>
+  	<servlet-class>servlet.UserServlet</servlet-class>
+  </servlet>
+   <servlet>
+  	<servlet-name>GoodServlet</servlet-name>
+  	<servlet-class>servlet.GoodServlet</servlet-class>
+  </servlet>
+   <servlet>
+  	<servlet-name>CollectServlet</servlet-name>
+  	<servlet-class>servlet.CollectServlet</servlet-class>
+  </servlet>
+   <servlet>
+  	<servlet-name>CardServlet</servlet-name>
+  	<servlet-class>servlet.CardServlet</servlet-class>
+  </servlet>
+   <servlet>
+  	<servlet-name>OrderServlet</servlet-name>
+  	<servlet-class>servlet.OrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>OrderItemServlet</servlet-name>
+  	<servlet-class>servlet.OrderItemServlet</servlet-class>
+  </servlet>
+   <servlet>
+    <servlet-name>CategoryServlet</servlet-name>
+  	<servlet-class>servlet.CategoryServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>BaseServlet</servlet-name>
+  	<url-pattern>/BaseServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UserServlet</servlet-name>
+  	<url-pattern>/UserServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>GoodServlet</servlet-name>
+  	<url-pattern>/GoodServlet</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+  	<servlet-name>CollectServlet</servlet-name>
+  	<url-pattern>/CollectServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CardServlet</servlet-name>
+  	<url-pattern>/CardServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>OrderServlet</servlet-name>
+  	<url-pattern>/OrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>OrderItemServlet</servlet-name>
+  	<url-pattern>/OrderItemServlet</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+  	<servlet-name>CategoryServlet</servlet-name>
+  	<url-pattern>/CategoryServlet</url-pattern>
+  </servlet-mapping>
+</web-app>

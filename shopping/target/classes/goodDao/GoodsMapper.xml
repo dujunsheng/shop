@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodMapper">
+  
+   <sql id="Base_Column_List">
+    g_id, g_name, g_price, g_picture, g_quantity, c_id
+  </sql>
+   
+  <!-- 通过主键查询商品 -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="Goods">
+    select 
+     <include refid="Base_Column_List" />
+    from good
+    where g_id = #{gId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询所有的商品,分页查询 -->
+  <select id="findAll" parameterType="java.util.Map" resultMap="Goods">
+  	 select 
+    <!-- <include refid="Base_Column_List" /> -->
+    *from good
+     limit #{pc},#{tr}  
+  </select>
+  
+   <!-- 查询所有的商品数目-->
+  <select id="countAll" resultType="int">
+  	 select 
+ 	count(*)
+    from good
+  </select>
+  
+  <select id="findByName" parameterType="String" resultMap="Goods">
+  	select * from good
+  	where g_name = #{gName}
+  </select>
+  
+  <!-- 通过c_id查询商品的数目 -->
+  <select id="countByC_id" parameterType="int" resultType="int">
+  	select count(*) good
+  	where c_id = #{c_id}
+  </select>
+  
+  <!-- 通过分类查询商品 -->
+  <select id="findByC_id" parameterType="java.util.Map" resultMap="Goods" >
+	select  
+	<include refid="Base_Column_List" />
+	from good
+	where c_id = #{cId}	
+	limit #{sp},#[ep}
+  </select>
+  
+  <resultMap type="Goods" id="findByC_id">
+  		<id column="g_id" property="gId"/>
+  		<result column="g_name" property="gName"/>
+  		<result column="g_price" property="gPrice"/>
+  </resultMap>
+  
+ <!-- 多条件分页查询商品数目 -->
+ 	<select id="countByCondition" parameterType="java.util.Map" resultType="int">
+ 		select count(*) from good
+ 		<where>
+ 		<if test=" c_id != null ">
+ 			and c_id = #{c_id}
+ 		</if>
+ 		<if test=" min != 0 and max != 0">
+ 			and g_price between #{min} and #{max}
+ 		</if>
+ 		<if test=" min == 0 and max != 0 ">
+ 			and g_price between #{min} and #{max}
+ 		</if>
+ 		</where>
+ 	</select>
+ 	
+ 	<!-- 多条件查询商品分页查询 -->
+ 	<select id="findByCondition" parameterType="java.util.Map" resultMap="Goods">
+ 		select * from good
+ 		<where>
+ 		<if test=" name != null and name !=' '">
+ 			and g_name like % #{name} %
+ 		</if>
+ 		<if test=" c_id != null ">
+ 			and c_id = #{c_id}
+ 		</if>
+ 		<if test=" max != 0">
+ 			and g_price between #{min} and #{max}
+ 		</if>
+ 		</where>
+ 		limit #{sp},#{ep}
+ 	</select>
+ 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from good
+    where g_id = #{gId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Goods">
+    insert into good (g_id, g_name, g_price, 
+      g_picture, g_quantity, c_id
+      )
+    values (#{gId,jdbcType=INTEGER}, #{gName,jdbcType=VARCHAR}, #{gPrice,jdbcType=REAL}, 
+      #{gPicture,jdbcType=VARCHAR}, #{gQuantity,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="Goods">
+    insert into good
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gId != null">
+        g_id,
+      </if>
+      <if test="gName != null">
+        g_name,
+      </if>
+      <if test="gPrice != null">
+        g_price,
+      </if>
+      <if test="gPicture != null">
+        g_picture,
+      </if>
+      <if test="gQuantity != null">
+        g_quantity,
+      </if>
+      <if test="cId != null">
+        c_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gId != null">
+        #{gId,jdbcType=INTEGER},
+      </if>
+      <if test="gName != null">
+        #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="gPrice != null">
+        #{gPrice,jdbcType=REAL},
+      </if>
+      <if test="gPicture != null">
+        #{gPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="gQuantity != null">
+        #{gQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="cId != null">
+        #{cId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="Goods">
+    update good
+    <set>
+      <if test="gName != null">
+        g_name = #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="gPrice != null">
+        g_price = #{gPrice,jdbcType=REAL},
+      </if>
+      <if test="gPicture != null">
+        g_picture = #{gPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="gQuantity != null">
+        g_quantity = #{gQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="cId != null">
+        c_id = #{cId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where g_id = #{gId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="Goods">
+    update good
+    set g_name = #{gName,jdbcType=VARCHAR},
+      g_price = #{gPrice,jdbcType=REAL},
+      g_picture = #{gPicture,jdbcType=VARCHAR},
+      g_quantity = #{gQuantity,jdbcType=INTEGER},
+      c_id = #{cId,jdbcType=INTEGER}
+    where g_id = #{gId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="Goods" type="Goods">
+    <id column="g_id" jdbcType="INTEGER" property="gId" />
+    <result column="g_name" jdbcType="VARCHAR" property="gName" />
+    <result column="g_category" jdbcType="INTEGER" property="gCategory" />
+    <result column="g_price" jdbcType="REAL" property="gPrice" />
+    <result column="g_picture" jdbcType="VARCHAR" property="gPicture" />
+    <result column="g_quantity" jdbcType="INTEGER" property="gQuantity" />
+    <result column="c_id" jdbcType="INTEGER" property="cId" />
+  </resultMap>
+  
+</mapper>
