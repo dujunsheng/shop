@@ -41,9 +41,10 @@ public class UserService {
 	
 //	修改新密码，如果旧的密码输入正确就修改
 	public boolean updatePassword(User user,String oldPass,String newPass) throws Exception{
+			User user1 = new User();
 			user.setU_pw(oldPass);
-			user = userDao.userLoad(user) ;
-		if( user != null){
+			user1 = userDao.userLoad(user) ;
+		if( user1 != null){
 			User newUser = new User();
 			newUser.setU_id(user.getU_id());
 			newUser.setU_pw(newPass);

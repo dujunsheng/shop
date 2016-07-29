@@ -44,7 +44,7 @@ public class CollectServlet extends BaseServlet{
 		int pc = getPc(req);
 		String url = getUrl(req);
 		PageBean<Collection> pb = collectionService.findByU_id(u_id, pc);
-		pb.setUrl(url);
+		pb.setUrl(req.getContextPath()+"/CollectServlet?method=myCollect");
 		req.setAttribute("pb", pb);
 		return "f:/User/collect.jsp";
 		
@@ -52,7 +52,7 @@ public class CollectServlet extends BaseServlet{
 	
 	public String delete(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException , IOException, SQLException{
-		String g_id = req.getParameter("Gid");
+		String g_id = req.getParameter("gId");
 		int gId = Integer.valueOf(g_id);
 		User user = (User)req.getSession().getAttribute("sessionUser");
 		Collection collection = new Collection();

@@ -73,7 +73,7 @@
 		<br/>
 		<br/>
 		<br/>
-		<span style="margin-left: 50px;"><a target="_top" href="<c:url value='/jsps/user/login.jsp'/>">登录</a></span>
+		<span style="margin-left: 50px;"><a target="_top" href="<c:url value='/User/load.jsp'/>">登录</a></span>
 		<span style="margin-left: 50px;"><a target="_top" href="<c:url value='/index.jsp'/>">主页</a></span>
 	  </div>
 	</div>

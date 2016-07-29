@@ -27,8 +27,8 @@
     </div>
 
 	<div class="div1">
-		<form action="<c:url value='/UserServlet?method=updatePassword&newPass=${newPassword }&oldPass=${oldPassword }'/>" method="post" target="_top" onSubmit="validateAll();">
-			<input type="hidden" name="method" value="update"/>
+		<form action="<c:url value='/UserServlet'/>" method="post" target="_top" onSubmit="validateAll();">
+			<input type="hidden" name="method" value="updatePassword"/>
 		<table align="center">
 		<tr>
 				<td align="center">原密码：</td>
@@ -45,11 +45,6 @@
 				<td><input class="input" type="password" name="againPw" /></td>
 				<td><label id="loginpassError" class="error">${errors.oldPass }</label></td>
 			</tr>
-			<tr>
-				<td><label class="error">${msg }</label></td>
-				<td colspan="2">&nbsp;</td>
-			</tr>
-		
 			<tr>
 				<td align="right"></td>
 				<td><input id="submit" type="submit" value="修改"/></td>

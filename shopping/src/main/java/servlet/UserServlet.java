@@ -58,22 +58,21 @@ public class UserServlet extends BaseServlet {
 		
 		public String updatePassword(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 			User formUser = (User) req.getSession().getAttribute("sessionUser");
-			String newPass=req.getParameter("newPass");
-			String oldPass=req.getParameter("oldPass");
+			String newPass=req.getParameter("newPassword");
+			String oldPass=req.getParameter("oldPassword");
 			Map<String,String> errMessMap=new HashMap<String,String>();
 			//errors.oldPass
-			
-			if(userService.updatePassword(formUser, oldPass, newPass)){
+			if( userService.updatePassword(formUser, oldPass, newPass)){
 				req.setAttribute("code", "success");
 				req.setAttribute("msg", "修改密码成功！");
-				return "f:/jsps/msg.jsp";
+				return "f:/User/msg.jsp";
 			}else{
 				req.setAttribute("errors", errMessMap);
 				req.setAttribute("newPass",newPass);
 				req.setAttribute("oldPass",oldPass);
 				req.setAttribute("reInputPass",newPass);
 				errMessMap.put("oldPass", "原密码输入错误！");
-				return "f:/jsps/user/pwd.jsp";
+				return "f:/User/msg.jsp";
 			}
 		}
 		

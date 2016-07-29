@@ -46,13 +46,13 @@
 				<c:forEach items="${pb.beanList }" var="collection" varStatus="status">
 					<tr align="center" class="row${status.index mod 3 }">					
 						<td align="left" width="200px" colspan=2>
-						    <a  href="<c:url value='/GoodServlet?method=findByGid&Gid=${collection.good.gId  }'/>"><span>${collection.good.gName }</span></a>
+						    <a  href="<c:url value='/GoodServlet?method=findByGid&gId=${collection.good.gId  }'/>"><span>${collection.good.gName }</span></a>
 						</td>
 						<td>
-							<a href="<c:url value='/CollectServlet?method=delete&Gid=${collection.good.gId}'/>">删除</a>
+							<a href="<c:url value='/CollectServlet?method=delete&gId=${collection.good.gId}'/>">删除</a>
 						</td>
 						<td>
-							<a href="<c:url value='/GoodServlet?method=findByGid&Gid=${collection.good.gId}'/>">查询</a>
+							<a href="<c:url value='/GoodServlet?method=findByGid&gId=${collection.good.gId}'/>">查询</a>
 						</td>
 					</tr>
 					<br>

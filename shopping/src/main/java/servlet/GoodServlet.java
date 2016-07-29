@@ -47,7 +47,7 @@ public class GoodServlet extends BaseServlet {
 		String url = getUrl(req);
 		int pc = getPc(req);
 		PageBean<Goods> pb = goodService.findAll(pc);
-		pb.setUrl(url);
+		pb.setUrl(req.getContextPath()+"/GoodServlet?method=findAll");
 		req.setAttribute("pb", pb);
 		return "f:/User/good.jsp";
 		
@@ -58,7 +58,7 @@ public class GoodServlet extends BaseServlet {
 	String url = getUrl(req);
 	int pc = getPc(req);
 	PageBean<Goods> pb = goodService.findAll(pc);
-	pb.setUrl(url);
+	pb.setUrl(req.getContextPath()+"/GoodServlet?method=findByCategory");
 	req.setAttribute("pb", pb);
 	return "f:/User/good.jsp";
 	}

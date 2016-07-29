@@ -39,7 +39,7 @@ public class OrderItemServlet extends BaseServlet{
 		String url = getUrl(req);
 		int o_id = Integer.valueOf(req.getParameter("oId"));
 		PageBean<OrderItem> pb = odItemService.findByO_id(o_id, pc);
-		pb.setUrl(url);
+		pb.setUrl(req.getContextPath()+"/OrderItemServlet?method=findByOid");
 		req.setAttribute("pb", pb);
 		req.setAttribute("o_id", o_id);
 		return "f:/User/orderItem.jsp";

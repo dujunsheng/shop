@@ -40,7 +40,7 @@ public class OrderServlet extends BaseServlet {
 		String url = getUrl(req);
 		User user = (User) req.getSession().getAttribute("sessionUser");	
 		PageBean<Order> pb = orderService.findByU_id(user.getU_id(), pc);
-		pb.setUrl(url);
+		pb.setUrl(req.getContextPath()+"/OrderServlet?method=myOrder");
 		req.setAttribute("pb", pb);
 		return "f:/User/order.jsp";
 	}

@@ -46,7 +46,7 @@ public class CardServlet extends BaseServlet {
 		int pc = getPc(req);
 		String url = getUrl(req);
 		PageBean<CardItem> pb = cardItemService.findByU_id(user.getU_id(), pc);
-		pb.setUrl(url);
+		pb.setUrl(req.getContextPath()+"/CardServlet?method=myCard");
 		req.setAttribute("pb", pb);
 		return "f:/User/cardItem.jsp";
 	} 
